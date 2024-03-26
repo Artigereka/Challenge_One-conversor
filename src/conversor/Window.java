@@ -12,40 +12,23 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.CardLayout;
 import java.awt.Font;
-import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
-public class Main extends JFrame{
+public class Window extends JFrame{
 	
 	private JPanel contentPane;
 	private JTextField inputTextField;
 	private JTextField outputTextField;
 	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Main frame = new Main();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	/**
 	 * Create the frame.
 	 */
-	public Main() {
-		// Atributes
+	public Window() {
+//		Atributes
 		Font font = new Font("Montserrat", Font.PLAIN, 14);
 		String[] currenciesList = { "MXN", "USD", "EUR", "GBP", "JPY", "NZD" };
 		String[] temperaturesList = { "C°", "F°", "K°" };
@@ -58,7 +41,7 @@ public class Main extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow][grow][]", "[][][][][][grow]"));
+		contentPane.setLayout(new MigLayout("", "[grow][grow][]", "[][][][][][]"));
 		
 //		Label
 		JLabel titleLabel = new JLabel("Choose the type of units to convert");
@@ -73,7 +56,6 @@ public class Main extends JFrame{
 		JPanel subSelectorBottomPane = new JPanel();
 		contentPane.add(subSelectorBottomPane, "cell 1 5,grow");
 		subSelectorBottomPane.setLayout(new CardLayout(0, 0));
-
 
 //		SubSelector
 		JComboBox<?> currenciesTopBox = new JComboBox<>(currenciesList);

@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="A:/Explorer/Lib para conversor/jgoodies-forms-1.8.0.jar"/>
 	<classpathentry kind="lib" path="A:/Explorer/Lib para conversor/jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="A:/Explorer/Lib para conversor/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="A:/Explorer/Lib para conversor/gson-2.10.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
