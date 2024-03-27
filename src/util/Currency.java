@@ -1,4 +1,4 @@
-package conversor;
+package util;
 
 public class Currency {
 	

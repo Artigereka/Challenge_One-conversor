@@ -8,11 +8,12 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import conversor.Currency;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import com.google.gson.Gson;
+
+import util.Currency;
 
 public class TestAPI {
 	

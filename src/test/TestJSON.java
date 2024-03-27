@@ -2,7 +2,7 @@ package test;
 
 import com.google.gson.Gson;
 
-import conversor.Currency;
+import util.Currency;
 
 public class TestJSON {
 	

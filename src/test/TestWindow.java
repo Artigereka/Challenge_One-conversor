@@ -2,7 +2,7 @@ package test;
 
 import java.awt.EventQueue;
 
-import conversor.Window;
+import main.Window;
 
 public class TestWindow {
 	

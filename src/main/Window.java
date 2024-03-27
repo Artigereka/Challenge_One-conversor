@@ -1,4 +1,4 @@
-package conversor;
+package main;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
