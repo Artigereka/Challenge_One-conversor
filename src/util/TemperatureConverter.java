@@ -23,22 +23,21 @@ public class TemperatureConverter {
 	 * using C as a medium if needed to
 	 * i.e: from F to K: convertToC(F) -> convertFromC(K)
 	 */
-	public double getConversionValue(double inputValue, Temperature fromUnit, Temperature toUnit) {
+	public static double getConversionValue(double inputValue, Temperature fromUnit, Temperature toUnit) {
 	if (fromUnit.toString() == "CELSIUS") {
-		convertFromC(inputValue, toUnit);
+		return convertFromC(inputValue, toUnit);
 //		return inputValue.multiply(cToF).toString();
 	} else if (toUnit.toString() == "CELSIUS") {
-		convertToC(inputValue, fromUnit);
+		return convertToC(inputValue, fromUnit);
 	} else {
-		convertFromC(convertToC(inputValue,fromUnit),toUnit);
+		return convertFromC(convertToC(inputValue,fromUnit),toUnit);
 	}
-	return 0;
 }
 	
 	/**
 	 * Converts value from any unit to C
 	 */
-	private double convertToC(double inputValue, Temperature unitFrom) {
+	private static double convertToC(double inputValue, Temperature unitFrom) {
 		switch(unitFrom) {
 		case FARENHEIT:
 			return (inputValue - 32) * 5/9;
@@ -52,7 +51,7 @@ public class TemperatureConverter {
 	/**
 	 * Converts value from C to any unit
 	 */
-	public double convertFromC(double inputValue, Temperature unitFrom) {
+	public static double convertFromC(double inputValue, Temperature unitFrom) {
 	switch (unitFrom) {
 	case FARENHEIT:
 		return inputValue * 9 / 5 + 32;
