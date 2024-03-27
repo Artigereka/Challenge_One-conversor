@@ -1,6 +1,8 @@
-package conversor;
+package test;
 
 import java.awt.EventQueue;
+
+import conversor.Window;
 
 public class TestWindow {
 	

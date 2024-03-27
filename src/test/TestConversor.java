@@ -1,4 +1,6 @@
-package conversor;
+package test;
+
+import conversor.Conversor;
 
 public class TestConversor {
 	

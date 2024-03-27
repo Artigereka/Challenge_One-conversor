@@ -1,4 +1,4 @@
-package conversor;
+package test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import conversor.Currency;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -18,15 +19,16 @@ public class TestAPI {
 	public static void main(String[] args) {
 		
 		String apiKey = "ar2l9a68u3o8si1qf5mplondt42l9m01j04tdi5ft58mj0hjdb3m8";
-		String base = "USD";
+		String base = "GBP";
 		String to = "EUR";
 		BigDecimal amount = new BigDecimal("100");
-		String converted;
+//		String converted;
+		String urlRequested = "https://anyapi.io/api/v1/exchange/convert?base=" + base + "&to=" + to + "&amount="
+				+ amount.intValue() + "&apiKey=" + apiKey;
 		
 		try {
 			@SuppressWarnings("depracation")
-			URL url = new URL("https://anyapi.io/api/v1/exchange/convert?base=" + base + "&to=" + to + "&amount="
-					+ amount.intValue() + "&apiKey=" + apiKey);
+			URL url = new URL(urlRequested);
 			
 			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -44,9 +46,11 @@ public class TestAPI {
 				String response = readAll(rd);
 //				Store API useful data
 
+				Gson gson = new Gson();
+				Currency currency = gson.fromJson(response, Currency.class);
 
 				System.out.println(response);
-//				System.out.println(converted);
+				System.out.println(currency.getConverted());
 
 			}
 		} catch (Exception e) {
