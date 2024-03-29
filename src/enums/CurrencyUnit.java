@@ -1,6 +1,6 @@
 package enums;
 
-public enum Currency {
+public enum CurrencyUnit {
 	
 	MXN,
 	USD,

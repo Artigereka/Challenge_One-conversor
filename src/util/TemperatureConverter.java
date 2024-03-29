@@ -2,7 +2,7 @@ package util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import enums.Temperature;
+import enums.TemperatureUnit;
 
 public class TemperatureConverter {
 	
@@ -10,7 +10,7 @@ public class TemperatureConverter {
 	 * Converts a BigDecimal from one unit to another using C as a medium if needed to
 	 * i.e: from F to K: convertToC(F) -> convertFromC(K)
 	 */
-	public static BigDecimal getConversionValue(BigDecimal inputValue, Temperature fromUnit, Temperature toUnit) {
+	public static BigDecimal getConversionValue(BigDecimal inputValue, TemperatureUnit fromUnit, TemperatureUnit toUnit) {
 	if (fromUnit.toString() == "CELSIUS") {
 		return convertFromC(inputValue, toUnit).setScale(3, RoundingMode.HALF_UP);
 	} else if (toUnit.toString() == "CELSIUS") {
@@ -23,7 +23,7 @@ public class TemperatureConverter {
 	/**
 	 * Converts value from any unit to C
 	 */
-	private static BigDecimal convertToC(BigDecimal inputValue, Temperature unitFrom) {
+	private static BigDecimal convertToC(BigDecimal inputValue, TemperatureUnit unitFrom) {
 		switch(unitFrom) {
 		case FARENHEIT:
 			return inputValue.subtract(new BigDecimal("32")).multiply(new BigDecimal("5")).divide(new BigDecimal("9"), 10, RoundingMode.HALF_UP);
@@ -37,7 +37,7 @@ public class TemperatureConverter {
 	/**
 	 * Converts value from C to any unit
 	 */
-	public static BigDecimal convertFromC(BigDecimal inputValue, Temperature unitFrom) {
+	private static BigDecimal convertFromC(BigDecimal inputValue, TemperatureUnit unitFrom) {
 	switch (unitFrom) {
 	case FARENHEIT:
 		return inputValue.multiply(new BigDecimal("9").divide(new BigDecimal("5"), 10, RoundingMode.HALF_UP)).add(new BigDecimal("32"));

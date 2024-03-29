@@ -1,4 +1,4 @@
-package test;
+package util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,24 +13,28 @@ import javax.net.ssl.HttpsURLConnection;
 
 import com.google.gson.Gson;
 
+import enums.CurrencyUnit;
+import resources.ApiKey;
 import resources.Currency;
 
-public class TestAPI {
+public class CurrencyConverter {
 	
-	public static void main(String[] args) {
-		
-		String apiKey = "ar2l9a68u3o8si1qf5mplondt42l9m01j04tdi5ft58mj0hjdb3m8";
-		String base = "GBP";
-		String to = "EUR";
-		BigDecimal amount = new BigDecimal("100");
-//		String converted;
-		String urlRequested = "https://anyapi.io/api/v1/exchange/convert?base=" + base + "&to=" + to + "&amount="
-				+ amount.intValue() + "&apiKey=" + apiKey;
-		
+	public static BigDecimal getConversionValue(BigDecimal inputValue, CurrencyUnit fromUnit, CurrencyUnit toUnit) {
+		String apiKey = new ApiKey().getApiKey();
+		String urlRequest = "https://anyapi.io/api/v1/exchange/convert?base=" + fromUnit + "&to=" + toUnit + "&amount=" +
+		inputValue.doubleValue() + "&apiKey=" + apiKey;
+		return apiConnect(urlRequest);
+	}
+
+	/*
+	 * Connects to API
+	 * Sends url request
+	 * Returns conversion as BigDecimal
+	 */
+	private static BigDecimal apiConnect(String urlRequest) {
 		try {
-			@SuppressWarnings("depracation")
-			URL url = new URL(urlRequested);
-			
+			@SuppressWarnings("deprecation")
+			URL url = new URL(urlRequest);
 			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.connect();
@@ -45,26 +49,25 @@ public class TestAPI {
 				InputStream inputStream = conn.getInputStream();
 				BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 				String response = readAll(rd);
-//				Store API useful data
-
+//				Extract API useful data
 				Gson gson = new Gson();
 				Currency currency = gson.fromJson(response, Currency.class);
-
-				System.out.println(response);
-				System.out.println(currency.getConverted());
-
+				return currency.getConverted();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new BigDecimal("0");
 		}
-		
 	}
-	
-	private static String readAll(Reader rd) throws IOException{
+
+	/*
+	 * Reads API response and returns it as a String
+	 */
+	private static String readAll(Reader rd) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
-		int cp;
-		while((cp = rd.read()) != -1) {
-			stringBuilder.append((char) cp);
+		int i;
+		while ((i = rd.read()) != -1) {
+			stringBuilder.append((char) i);
 		}
 		return stringBuilder.toString();
 	}

@@ -1,6 +1,6 @@
 package enums;
 
-public enum Temperature {
+public enum TemperatureUnit {
 	
 	CELSIUS,
 	FARENHEIT,
