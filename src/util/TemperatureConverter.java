@@ -1,32 +1,19 @@
 package util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import enums.Temperature;
 
 public class TemperatureConverter {
-	
-//	private BigDecimal inputValue;
-//	private String inputUnitFrom;
-//	private String inputUnitTo;
-//	
-//	private BigDecimal cToF = new BigDecimal("2");
-//	
-//	public TemperatureConverter(String inputValue, String inputUnitFrom, String inputUnitTo) {
-////		this.inputValue = Double.parseDouble(inputValue);
-//		this.inputValue = new BigDecimal(inputValue);
-//		this.inputUnitFrom = inputUnitFrom;
-//		this.inputUnitTo = inputUnitTo;
-//	}
 	
 	/**
 	 * Converts inputValue from one unit to another
 	 * using C as a medium if needed to
 	 * i.e: from F to K: convertToC(F) -> convertFromC(K)
 	 */
-	public static double getConversionValue(double inputValue, Temperature fromUnit, Temperature toUnit) {
+	public static BigDecimal getConversionValue(BigDecimal inputValue, Temperature fromUnit, Temperature toUnit) {
 	if (fromUnit.toString() == "CELSIUS") {
 		return convertFromC(inputValue, toUnit);
-//		return inputValue.multiply(cToF).toString();
 	} else if (toUnit.toString() == "CELSIUS") {
 		return convertToC(inputValue, fromUnit);
 	} else {
@@ -37,12 +24,12 @@ public class TemperatureConverter {
 	/**
 	 * Converts value from any unit to C
 	 */
-	private static double convertToC(double inputValue, Temperature unitFrom) {
+	private static BigDecimal convertToC(BigDecimal inputValue, Temperature unitFrom) {
 		switch(unitFrom) {
 		case FARENHEIT:
-			return (inputValue - 32) * 5/9;
+			return inputValue.subtract(new BigDecimal("32")).multiply(new BigDecimal("5")).divide(new BigDecimal("9"),RoundingMode.HALF_UP);
 		case KELVIN:
-			return inputValue - 273.15;
+			return inputValue.subtract(new BigDecimal("273.15"));
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + unitFrom);
 		}
@@ -51,12 +38,12 @@ public class TemperatureConverter {
 	/**
 	 * Converts value from C to any unit
 	 */
-	public static double convertFromC(double inputValue, Temperature unitFrom) {
+	public static BigDecimal convertFromC(BigDecimal inputValue, Temperature unitFrom) {
 	switch (unitFrom) {
 	case FARENHEIT:
-		return inputValue * 9 / 5 + 32;
+		return inputValue.multiply(new BigDecimal("9").divide(new BigDecimal("5"),RoundingMode.HALF_UP)).add(new BigDecimal("32"));
 	case KELVIN:
-		return inputValue + 273.15;
+		return inputValue.add(new BigDecimal("273.15"));
 	default:
 		throw new IllegalArgumentException("Unexpected value: " + unitFrom);
 	}

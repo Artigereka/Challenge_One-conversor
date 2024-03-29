@@ -1,21 +1,18 @@
 package test;
 
+import java.math.BigDecimal;
+
 import enums.Temperature;
 import util.TemperatureConverter;
 
 public class TestTempConvert {
 	
 	public static void main(String[] args) {
-//		TemperatureConvert tc = new TemperatureConvert("10.012", "C", "F");
-//		System.out.println(tc.getConversion());
-		
-//		TemperatureConverter tc = new TemperatureConverter();
-		Temperature inputFrom = Temperature.KELVIN;
-		System.out.println(inputFrom.toString());
 		Temperature inputTo = Temperature.FARENHEIT;
-		double convertedTemp = TemperatureConverter.getConversionValue(10.25, inputFrom, inputTo);
+		Temperature inputFrom = Temperature.KELVIN;
+		BigDecimal inputValue = new BigDecimal("10.25"); 
+		BigDecimal convertedTemp = TemperatureConverter.getConversionValue(inputValue, inputFrom, inputTo);
 		System.out.println(convertedTemp);
-//		tc.getConversionValue(10.25, inputFrom, inputTo);
 	}
 
 }
