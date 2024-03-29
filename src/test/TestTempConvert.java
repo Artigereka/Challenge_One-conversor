@@ -8,9 +8,9 @@ import util.TemperatureConverter;
 public class TestTempConvert {
 	
 	public static void main(String[] args) {
-		Temperature inputTo = Temperature.FARENHEIT;
-		Temperature inputFrom = Temperature.KELVIN;
-		BigDecimal inputValue = new BigDecimal("10.25"); 
+		Temperature inputTo = Temperature.KELVIN;
+		Temperature inputFrom = Temperature.FARENHEIT;
+		BigDecimal inputValue = new BigDecimal("123.325"); 
 		BigDecimal convertedTemp = TemperatureConverter.getConversionValue(inputValue, inputFrom, inputTo);
 		System.out.println(convertedTemp);
 	}

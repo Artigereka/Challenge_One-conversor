@@ -15,6 +15,11 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.math.BigDecimal;
+
+import enums.Currency;
+import enums.Temperature;
+import util.TemperatureConverter;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -30,9 +35,11 @@ public class Window extends JFrame{
 	public Window() {
 //		Atributes
 		Font font = new Font("Montserrat", Font.PLAIN, 14);
-		String[] currenciesList = { "MXN", "USD", "EUR", "GBP", "JPY", "NZD" };
-		String[] temperaturesList = { "C°", "F°", "K°" };
+//		String[] currenciesList = { "MXN", "USD", "EUR", "GBP", "JPY", "NZD" };
+//		String[] temperaturesList = { "C°", "F°", "K°" };
+//		ArrayList<TemperatureUnit> temperaturesList = new ArrayList<TemperatureUnit>(Arrays.asList(TemperatureUnit.values()));
 		
+//		ContentPane
 		setTitle("Unit Conversor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -58,21 +65,23 @@ public class Window extends JFrame{
 		subSelectorBottomPane.setLayout(new CardLayout(0, 0));
 
 //		SubSelector
-		JComboBox<?> currenciesTopBox = new JComboBox<>(currenciesList);
+		JComboBox<Currency> currenciesTopBox = new JComboBox<>(Currency.values());
 		currenciesTopBox.setSelectedIndex(0);
 		subSelectorTopPane.add(currenciesTopBox);
-
-		JComboBox<?> temperaturesTopBox = new JComboBox<>(temperaturesList);
-		temperaturesTopBox.setSelectedIndex(0);
-		subSelectorTopPane.add(temperaturesTopBox);
 		
-		JComboBox<?> currenciesBottomBox = new JComboBox<>(currenciesList);
+		JComboBox<Currency> currenciesBottomBox = new JComboBox<>(Currency.values());
 		currenciesBottomBox.setSelectedIndex(1);
 		subSelectorBottomPane.add(currenciesBottomBox);
+		
+		JComboBox<Temperature> temperaturesTopBox = new JComboBox<>(Temperature.values());
+		temperaturesTopBox.setSelectedIndex(0);
+		subSelectorTopPane.add(temperaturesTopBox);
+		temperaturesTopBox.setVisible(false);
 
-		JComboBox<?> temperaturesBottomBox = new JComboBox<>(temperaturesList);
+		JComboBox<Temperature> temperaturesBottomBox = new JComboBox<>(Temperature.values());
 		temperaturesBottomBox.setSelectedIndex(1);
 		subSelectorBottomPane.add(temperaturesBottomBox);
+		temperaturesBottomBox.setVisible(false);
 		
 		/**
 		 * This action listeners change the value of the non-selected box
@@ -138,17 +147,7 @@ public class Window extends JFrame{
 		contentPane.add(outputTextField, "cell 0 5,growx");
 		outputTextField.setColumns(10);
 
-//		ConvertButton
-		JButton convertButton = new JButton("Convert");
-		convertButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String obtainedInput = inputTextField.getText();
-				outputTextField.setText(obtainedInput + "convert");
-			}
-		});
-		contentPane.add(convertButton, "cell 2 4");
-
-		// UnitsSelector
+//		TypeSelector
 		JRadioButton currenciesRadioButton = new JRadioButton("Currencies");
 		currenciesRadioButton.setFont(font);
 		currenciesRadioButton.setSelected(true);
@@ -177,6 +176,31 @@ public class Window extends JFrame{
 		ButtonGroup units = new ButtonGroup();
 		units.add(currenciesRadioButton);
 		units.add(temperaturesRadioButton);
+		
+//		ConvertButton
+		JButton convertButton = new JButton("Convertir");
+		convertButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BigDecimal inputValue = new BigDecimal(inputTextField.getText().toString());
+				BigDecimal outputValue = new BigDecimal("0");
+
+				try {
+					if (currenciesRadioButton.isSelected()) {
+						Currency fromUnit = (Currency) currenciesTopBox.getSelectedItem();
+						Currency toUnit = (Currency) currenciesBottomBox.getSelectedItem();
+//						outputValue = currencies converter;
+					} else if (temperaturesRadioButton.isSelected()) {
+						Temperature fromUnit = (Temperature) temperaturesTopBox.getSelectedItem();
+						Temperature toUnit = (Temperature) temperaturesBottomBox.getSelectedItem();
+						outputValue = TemperatureConverter.getConversionValue(inputValue, fromUnit, toUnit);
+					}
+				} catch (Exception e2) {
+					outputTextField.setText("NaN");
+				}
+				outputTextField.setText(outputValue.toString());
+			}
+		});
+		contentPane.add(convertButton, "cell 2 4");
 		
 	}
 
