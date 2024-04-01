@@ -103,7 +103,7 @@ public class Controller extends JFrame{
 		units.add(temperaturesRadioButton);
 		
 //		TextField
-		inputTextField = new JTextField();
+		inputTextField = new JTextField("");
 		inputTextField.setFont(font);
 		contentPane.add(inputTextField, "cell 0 4,growx");
 		
@@ -153,6 +153,7 @@ public class Controller extends JFrame{
 //		ConvertButton
 		JButton convertButton = new JButton("Convert");
 		convertButton.setFont(font);
+		convertButton.setEnabled(false);
 		contentPane.add(convertButton, "cell 0 8 2 1,alignx center,aligny center");
 		
 //		Action listeners
@@ -253,23 +254,25 @@ public class Controller extends JFrame{
 					inputTextField.setForeground(new Color(187, 187, 187));
 					validationErrorLabel.setVisible(false);
 					convertButton.setEnabled(true);
-//					disabled because of HttpResponseCode: 429 - Too many requests
-//					try {
-//					BigDecimal inputValue = new BigDecimal(inputTextField.getText().toString());
-//					BigDecimal outputValue = new BigDecimal("0");
-//					if (currenciesRadioButton.isSelected()) {
-//						CurrencyUnit fromUnit = (CurrencyUnit) currenciesTopBox.getSelectedItem();
-//						CurrencyUnit toUnit = (CurrencyUnit) currenciesBottomBox.getSelectedItem();
-//						outputValue = CurrencyConverter.getConversionValue(inputValue, fromUnit, toUnit);
-//					} else if (temperaturesRadioButton.isSelected()) {
-//						TemperatureUnit fromUnit = (TemperatureUnit) temperaturesTopBox.getSelectedItem();
-//						TemperatureUnit toUnit = (TemperatureUnit) temperaturesBottomBox.getSelectedItem();
-//						outputValue = TemperatureConverter.getConversionValue(inputValue, fromUnit, toUnit);
-//					}
-//					outputTextField.setText(outputValue.toString());
-//				} catch (Exception e2) {
-//					outputTextField.setText("NaN");
-//				}
+					/**
+					 * disabled because of HttpResponseCode: 429 - Too many requests
+					try {
+					BigDecimal inputValue = new BigDecimal(inputTextField.getText().toString());
+					BigDecimal outputValue = new BigDecimal("0");
+					if (currenciesRadioButton.isSelected()) {
+						CurrencyUnit fromUnit = (CurrencyUnit) currenciesTopBox.getSelectedItem();
+						CurrencyUnit toUnit = (CurrencyUnit) currenciesBottomBox.getSelectedItem();
+						outputValue = CurrencyConverter.getConversionValue(inputValue, fromUnit, toUnit);
+					} else if (temperaturesRadioButton.isSelected()) {
+						TemperatureUnit fromUnit = (TemperatureUnit) temperaturesTopBox.getSelectedItem();
+						TemperatureUnit toUnit = (TemperatureUnit) temperaturesBottomBox.getSelectedItem();
+						outputValue = TemperatureConverter.getConversionValue(inputValue, fromUnit, toUnit);
+					}
+					outputTextField.setText(outputValue.toString());
+				} catch (Exception e2) {
+					outputTextField.setText("NaN");
+				}
+				 */
 				}
 			}
 		});
