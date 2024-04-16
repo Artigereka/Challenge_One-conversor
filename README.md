@@ -27,9 +27,7 @@
  it only works with the temperatures (because it does not require out queries).</p>
 
  ## Program usage
-<p align="center"><video width="620" heigth="420" controls>
-     <source src="https://github.com/Artigereka/Challenge_One-conversor/assets/123119927/27780329-a25d-4d0f-a2d4-ac57ad775183" type="video/mp4">
-</video></p>
+https://github.com/Artigereka/Challenge_One-conversor/assets/123119927/27780329-a25d-4d0f-a2d4-ac57ad775183
 
  ## Posible improves
  * Adition of more currencies
